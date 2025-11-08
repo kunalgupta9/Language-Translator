@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Language Translator</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+  <div class="app">
+    <header class="header">
+      <h1>Language Translator</h1>
+    </header>
+
+    <main class="card">
+      <div class="controls">
+        <div class="control">
+          <label for="source">From</label>
+          <select id="source">
+            <option value="auto" selected>Auto Detect</option>
+            {% for code, name in languages %}
+              <option value="{{ code }}">{{ name }}</option>
+            {% endfor %}
+          </select>
+        </div>
+
+        <button id="swap" title="Swap languages">⇄</button>
+
+        <div class="control">
+          <label for="target">To</label>
+          <select id="target">
+            {% for code, name in languages %}
+              <option value="{{ code }}" {% if code == "en" %}selected{% endif %}>{{ name }}</option>
+            {% endfor %}
+          </select>
+        </div>
+      </div>
+
+      <textarea id="input" placeholder="Type or paste text here..."></textarea>
+
+      <div class="row">
+        <button id="translate">Translate</button>
+        <label class="inline"><input type="checkbox" id="autospeak" /> Auto-speak</label>
+      </div>
+
+     
+      <div class="output-container">
+        <textarea id="output" placeholder="Translation will appear here..." readonly></textarea>
+        <button id="speak" class="speaker" title="Play Audio" disabled>🔊</button>
+      </div>
+
+      <div id="error" class="error" role="alert" style="display:none;"></div>
+    </main>
+
+    <footer class="footer">
+      <p>Made by Kunal • B.Tech CSE</p>
+    </footer>
+  </div>
+
+  <script src="{{ url_for('static', filename='app.js') }}"></script>
+</body>
+</html>
